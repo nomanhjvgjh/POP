@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-cream: #FFF9F0;
+  --color-brand-black: #1A1A1A;
+  --color-strawberry: #FF4D4D;
+  --color-mango: #FF8C42;
+  --color-kiwi: #8ac926;
+  --color-blueberry: #6a4c93;
+  --color-nectar-orange: #f97316;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-black antialiased overflow-x-hidden;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-brand-black to-brand-black/40;
+}
+
+.border-bold {
+  @apply border-2 border-brand-black;
+}
+
+.tracking-ultra {
+  @apply tracking-[0.4em];
+}
+
+/* Lenis smooth scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Review Validation
+    function isValidReview(data) {
+      return data.keys().hasAll(['name', 'rating', 'description', 'createdAt'])
+        && data.keys().size() == 4
+        && data.name is string && data.name.size() >= 1 && data.name.size() <= 100
+        && data.rating is number && data.rating >= 1 && data.rating <= 5
+        && data.description is string && data.description.size() >= 1 && data.description.size() <= 1000
+        && data.createdAt == request.time;
+    }
+
+    match /reviews/{reviewId} {
+      allow list, get: if true; // Publicly readable archive
+      allow create: if isValidId(reviewId) && isValidReview(incoming());
+      allow update, delete: if false; // Archive immutable for now
+    }
+  }
+}

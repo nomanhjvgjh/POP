@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Review": {
+      "title": "Review",
+      "description": "A user submitted review of an experience.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the reviewer."
+        },
+        "rating": {
+          "type": "number",
+          "description": "The star rating given (1-5)."
+        },
+        "description": {
+          "type": "string",
+          "description": "The sensory description of the experience."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the review was created."
+        }
+      },
+      "required": [
+        "name",
+        "rating",
+        "description",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Collection of community reviews."
+    }
+  }
+}
